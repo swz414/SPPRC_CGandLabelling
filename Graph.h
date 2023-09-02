@@ -31,15 +31,22 @@ class Graph {
     map<int, set<int>> successors;
 
 public:
+    int nodesNum;
+    int edgesNum;
+
+    Graph() { nodesNum = 0; edgesNum = 0; };
+
     void addNode(int index, float_t corX, float_t corY, int demand, float_t readyTime, float_t dueTime, float_t serviceTime);
     void addEdge(int from, int to, float_t length, float_t travelTime);
 
     Node* getNode(int index);
     vector<Node*> getNodes();
+    int getNodesNum();
 
     Edge* getEdge(int from, int to);
     vector<Edge*> getEdges(int from);
     vector<Edge*> getAllEdges();
+    int getEdgesNum();
 
     vector<int> getSuccessors(int from);
     vector<int> getPrevious(int to);

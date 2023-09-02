@@ -1,5 +1,6 @@
 #include "Data.h"
 #include "Graph.h"
+#include "ColumnGeneration.h"
 
 int main()
 {
@@ -25,7 +26,7 @@ int main()
 		graph.addNode(data.customers[i].custNo, data.customers[i].posX, data.customers[i].posY, data.customers[i].demand,
 			data.customers[i].readyTime, data.customers[i].dueTime, data.customers[i].servTime);
 	}
-	db_print(DB_NORMAL, "nodelen: %d, %d, %f, %f\n", graph.getNodes().size(), graph.getNode(0)->index, graph.getNode(0)->corX, graph.getNode(0)->corY);
+	db_print(DB_NORMAL, "nodelen: %d, %d, %f, %f\n", graph.getNodesNum(), graph.getNode(0)->index, graph.getNode(0)->corX, graph.getNode(0)->corY);
 
 	// Ìí¼Ó±ß
 	for (int i = 0; i < data.customers.size(); ++i)
@@ -37,9 +38,19 @@ int main()
 			graph.addEdge(i, j, data.disMat[i][j], data.disMat[i][j]);
 		}
 	}
-	db_print(DB_NORMAL, "edgelen: %d, size: %d, %d, %d, %f\n", graph.getAllEdges().size(), graph.getEdges(0).size(), graph.getEdge(0, 1)->from, graph.getEdge(0, 1)->to, graph.getEdge(0, 1)->length);
+	db_print(DB_NORMAL, "edgelen: %d, size: %d, %d, %d, %f\n", graph.getEdgesNum(), graph.getEdges(0).size(), graph.getEdge(0, 1)->from, graph.getEdge(0, 1)->to, graph.getEdge(0, 1)->length);
 	db_print(DB_NORMAL, "the number of successors for 0: %d\n", graph.getSuccessors(0).size());
 	db_print(DB_NORMAL, "the number of previous for 0: %d\n", graph.getPrevious(0).size());
 
-
+	ColumnGeneration cg;
+	vector<vector<int>> initSol = cg.genInitSol(0, graph, 0, graph.getNodesNum()-1);
+	for (int i = 0; i < initSol.size(); ++i)
+	{
+		cout << "Â·¾¶" << i + 1 << ": ";
+		for (int j = 0; j < initSol[i].size(); ++j)
+		{
+			cout << initSol[i][j] << " ";
+		}
+		cout << endl;
+	}
 }

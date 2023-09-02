@@ -3,11 +3,13 @@
 void Graph::addNode(int index, float_t corX, float_t corY, int demand, float_t readyTime, float_t dueTime, float_t serviceTime)
 {
 	nodes.emplace(index, Node{ index, corX, corY, demand, readyTime, dueTime, serviceTime });
+	nodesNum += 1;
 }
 
 void Graph::addEdge(int from, int to, float_t length, float_t travelTime)
 {
 	edges[from][to] = Edge{ from, to, length, travelTime };
+	edgesNum += 1;
 
 	previous[to].insert(from);
 	successors[from].insert(to);
@@ -28,6 +30,11 @@ vector<Node*> Graph::getNodes()
 		[](auto& kv) { return &(kv.second); }
 	);
 	return rstVec;
+}
+
+int Graph::getNodesNum()
+{
+	return nodesNum;
 }
 
 Edge* Graph::getEdge(int from, int to)
@@ -57,6 +64,11 @@ vector<Edge*> Graph::getAllEdges()
 		retVec.assign(tmpVec.begin(), tmpVec.end());
 	}
 	return retVec;
+}
+
+int Graph::getEdgesNum()
+{
+	return edgesNum;
 }
 
 vector<int> Graph::getSuccessors(int from)
