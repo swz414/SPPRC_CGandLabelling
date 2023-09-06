@@ -4,6 +4,5 @@
 
 class ColumnGeneration {
 public:
-	vector<vector<int>> genInitSol(int type, const Graph& data, int startIndex, int endIndex);
-	void CGandLabelling();
+	void CGandLabelling(Graph& graph);
 };

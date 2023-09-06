@@ -1,77 +1,59 @@
 #include "ColumnGeneration.h"
 #include <gurobi_c++.h>
 
-bool genInitSol_normal(vector<vector<int>>& rstVec, Graph graph, int startIndex, int endIndex)
+void ColumnGeneration::CGandLabelling(Graph& graph)
 {
-	int nodesNum = graph.getNodesNum();
+	//int vehicleNum		= graph.getVehicleNum();	// 车辆数
+	//int capacity		= graph.getCapacity();		// 容量
+	//int nodesNum		= graph.getNodesNum();		// 节点数
+	////int initRoutesNum	= 
+	//vector<vector<int>> initRoutes	= graph.genInitSol(0, 0, nodesNum - 1);	// 获取初始路径
+	//int initRoutesNum				= initRoutes.size();					
+	//vector<float_t> initRoutesLen	= graph.calRoutesLength(initRoutes);
 
-	for (int i = 0; i < nodesNum; ++i)
-	{
-		if (i == startIndex || i == endIndex)
-			continue;
+	//try {
+	//	// Create an environment
+	//	GRBEnv env = GRBEnv(true);
+	//	env.set(GRB_IntParam_OutputFlag, 0);
+	//	env.start();
+	//	// Create an empty model
+	//	GRBModel model = GRBModel(env);
+	//	
+	//	// Create variables
+	//	GRBVar *x = model.addVars(initRoutesNum, GRB_CONTINUOUS);
 
-		vector<int> tmpVec;
-		tmpVec.push_back(startIndex);
-		tmpVec.push_back(i);
-		tmpVec.push_back(endIndex);
+	//	// Set objective: min sum(c * x)
+	//	GRBLinExpr objExpr = 0;
+	//	for (int i = 0; i < initRoutesNum; ++i) {
+	//		objExpr += initRoutesLen[i] * *(x + i);
+	//	}
+	//	model.setObjective(objExpr, GRB_MAXIMIZE);
 
-		rstVec.push_back(tmpVec);
-	}
+	//	// Add constraint: sum(a * x) == 1
+	//	for (int i = 1; i < nodesNum; ++i)
+	//	{
 
-	return true;
-}
+	//	}
+	//	GRBLinExpr lhsExpr = 0;
+	//	model.addConstr(x + 2 * y + 3 * z <= 4, "c0");
 
-vector<vector<int>> ColumnGeneration::genInitSol(int type, const Graph& graph, int startIndex, int endIndex)
-{
-	vector<vector<int>> retVec;
-	switch (type)
-	{
-	case 0:
-		genInitSol_normal(retVec, graph, startIndex, endIndex);
-		break;
-	default:
-		break;
-	}
 
-	return retVec;
-}
 
-void ColumnGeneration::CGandLabelling()
-{
-	try {
-		// Create an environment
-		GRBEnv env = GRBEnv(true);
-		env.set(GRB_IntParam_OutputFlag, 0);
-		env.start();
-		// Create an empty model
-		GRBModel model = GRBModel(env);
-		
-		// Create variables
-		GRBVar x = model.addVar(0.0, 1.0, 0.0, GRB_BINARY, "x");
-		GRBVar y = model.addVar(0.0, 1.0, 0.0, GRB_BINARY, "y");
-		GRBVar z = model.addVar(0.0, 1.0, 0.0, GRB_BINARY, "z");
-		// Set objective: maximize x + y + 2 z
-		model.setObjective(x + y + 2 * z, GRB_MAXIMIZE);
-		// Add constraint: x + 2 y + 3 z <= 4
-		model.addConstr(x + 2 * y + 3 * z <= 4, "c0");
-		// Add constraint: x + y >= 1
-		model.addConstr(x + y >= 1, "c1");
-
-		// Optimize model
-		model.optimize();
-		cout << x.get(GRB_StringAttr_VarName) << " "
-			<< x.get(GRB_DoubleAttr_X) << endl;
-		cout << y.get(GRB_StringAttr_VarName) << " "
-			<< y.get(GRB_DoubleAttr_X) << endl;
-		cout << z.get(GRB_StringAttr_VarName) << " "
-			<< z.get(GRB_DoubleAttr_X) << endl;
-		cout << "Obj: " << model.get(GRB_DoubleAttr_ObjVal) << endl;
-	}
-	catch (GRBException e) {
-		cout << "Error code = " << e.getErrorCode() << endl;
-		cout << e.getMessage() << endl;
-	}
-	catch (...) {
-		cout << "Exception during optimization" << endl;
-	}
+	//	// Optimize model
+	//	model.optimize();
+	//	cout << x.get(GRB_StringAttr_VarName) << " "
+	//		<< x.get(GRB_DoubleAttr_X) << endl;
+	//	cout << y.get(GRB_StringAttr_VarName) << " "
+	//		<< y.get(GRB_DoubleAttr_X) << endl;
+	//	cout << z.get(GRB_StringAttr_VarName) << " "
+	//		<< z.get(GRB_DoubleAttr_X) << endl;
+	//	cout << "Obj: " << model.get(GRB_DoubleAttr_ObjVal) << endl;
+	//}
+	//catch (GRBException e) {
+	//	cout << "Error code = " << e.getErrorCode() << endl;
+	//	cout << e.getMessage() << endl;
+	//}
+	//catch (...) {
+	//	cout << "Exception during optimization" << endl;
+	//}
 }

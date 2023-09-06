@@ -18,7 +18,7 @@ int main()
 	db_print(DB_NORMAL, "vehicleNum: %d, capicity: %d, custNum: %d\n", data.vehicleNum, data.capicity, data.customers.size());
 
 	// Step 2: 构建网络图
-	Graph graph;
+	Graph graph(data.vehicleNum, data.capicity);
 
 	// 添加节点
 	for (int i = 0; i < data.customers.size(); ++i)
@@ -42,14 +42,14 @@ int main()
 	db_print(DB_NORMAL, "the number of successors for 0: %d\n", graph.getSuccessors(0).size());
 	db_print(DB_NORMAL, "the number of previous for 0: %d\n", graph.getPrevious(0).size());
 
-	ColumnGeneration cg;
-	vector<vector<int>> initSol = cg.genInitSol(0, graph, 0, graph.getNodesNum()-1);
-	for (int i = 0; i < initSol.size(); ++i)
+	ret = graph.genInitSol(1, 0, graph.getNodesNum() - 1);
+	for (int i = 0; i < graph.getRoutesNum(); ++i)
 	{
+		Route* initRoute = graph.getRoute(i);
 		cout << "路径" << i + 1 << ": ";
-		for (int j = 0; j < initSol[i].size(); ++j)
+		for (int j = 0; j < initRoute->path.size(); ++j)
 		{
-			cout << initSol[i][j] << " ";
+			cout << initRoute->path[j] << " ";
 		}
 		cout << endl;
 	}
