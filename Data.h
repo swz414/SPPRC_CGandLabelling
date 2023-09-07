@@ -5,20 +5,20 @@
 
 class Data {
 private:
-	void addCustomer(Customer cust);
-	void setVehicleNum(int vehi);
-	void setCapicity(int capi);
+    void addCustomer(Customer cust);
+    void setVehicleNum(int vehi);
+    void setCapicity(int capi);
 
 public:
-	int vehicleNum;
-	int capicity;
-	vector<Customer> customers;
-	vector<vector<float_t>> disMat;
+    int vehicleNum;
+    int capicity;
+    vector<Customer> customers;
+    vector<vector<float_t>> disMat;
 
-	Data() {
-		vehicleNum = 0; capicity = 0;
-	};
+    Data() {
+        vehicleNum = 0; capicity = 0;
+    };
 
-	// 读取数据
-	bool ReadData(string filename, int maxCustNum = 10000);
+    // 读取数据
+    bool ReadData(string filename, int maxCustNum = 10000);
 };

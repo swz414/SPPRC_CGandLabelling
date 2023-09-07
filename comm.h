@@ -4,9 +4,9 @@
 
 #define DEBUG
 #ifdef DEBUG
-#define DB_NORMAL	0
-#define DB_ERROR	1
-#define DB_WARNING	2
+#define DB_NORMAL    0
+#define DB_ERROR    1
+#define DB_WARNING    2
 
 int db_print(int level, const char* format, ...);
 #else
