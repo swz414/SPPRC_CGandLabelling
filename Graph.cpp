@@ -93,9 +93,9 @@ void Graph::addNode(int index, float_t corX, float_t corY, int demand, float_t r
     nodesNum += 1;
 }
 
-void Graph::addEdge(int from, int to, float_t length, float_t travelTime)
+void Graph::addEdge(int from, int to, float_t length, float_t travelTime, float_t cost)
 {
-    edges[from][to] = Edge{ from, to, length, travelTime };
+    edges[from][to] = Edge{ from, to, length, travelTime, cost };
     edgesNum += 1;
 
     previous[to].insert(from);
@@ -378,6 +378,19 @@ bool Graph::genInitSol(int type, int startIndex, int endIndex)
     default:
         ret = genInitSol_NearestNeighbor(startIndex, endIndex);
         break;
+    }
+
+    return true;
+}
+
+bool Graph::updateCost(vector<float_t>& pi)
+{
+    for (auto &edge1: edges)
+    {
+        for (auto &edge2: edge1.second)
+        {
+            edge2.second.cost = edge2.second.travelTime - pi[edge2.second.from] / 2 - pi[edge2.second.to] / 2;
+        }
     }
 
     return true;

@@ -4,5 +4,5 @@
 
 class ColumnGeneration {
 public:
-    void CGandLabelling(Graph& graph);
+    void CGandLabelling(Graph& graph, int startIndex, int endIndex);
 };

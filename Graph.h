@@ -20,6 +20,7 @@ struct Edge
     int to;
     float_t length;
     float_t travelTime;
+    float_t cost;
 } typedef Edge;
 
 // 路径结构体
@@ -61,7 +62,7 @@ public:
     vector<Node*> getNodes();
     int getNodesNum();
 
-    void addEdge(int from, int to, float_t length, float_t travelTime);
+    void addEdge(int from, int to, float_t length, float_t travelTime, float_t cost);
     Edge* getEdge(int from, int to);
     vector<Edge*> getEdges(int from);
     vector<Edge*> getAllEdges();
@@ -80,4 +81,6 @@ public:
 
     vector<float_t> calRoutesLength(const vector<vector<int>>& routes);
     bool genInitSol(int type, int startIndex, int endIndex);
+
+    bool updateCost(vector<float_t>& pi);
 };

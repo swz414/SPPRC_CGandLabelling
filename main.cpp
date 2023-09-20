@@ -10,7 +10,7 @@ int main()
     string filename = "c101.txt";
     //string filename = "C1_6_1.txt";
     Data data;
-    ret = data.ReadData(filename);
+    ret = data.ReadData(filename, 30);
     if (!ret) {
         db_print(DB_ERROR, "¶ÁÈ¡Êý¾ÝÊ§°Ü£¡\n");
         return 0;
@@ -35,7 +35,7 @@ int main()
         {
             if (i == j || (i == 0 && j == data.customers.size() - 1) || (j == 0 && i == data.customers.size() - 1))
                 continue;
-            graph.addEdge(i, j, data.disMat[i][j], data.disMat[i][j]);
+            graph.addEdge(i, j, data.disMat[i][j], data.disMat[i][j], data.disMat[i][j]);
         }
     }
     db_print(DB_NORMAL, "edgelen: %d, size: %d, %d, %d, %f\n", graph.getEdgesNum(), graph.getEdges(0).size(), graph.getEdge(0, 1)->from, graph.getEdge(0, 1)->to, graph.getEdge(0, 1)->length);
@@ -43,7 +43,7 @@ int main()
     db_print(DB_NORMAL, "the number of previous for 0: %d\n", graph.getPrevious(0).size());
 
     ColumnGeneration cg;
-    cg.CGandLabelling(graph);
+    cg.CGandLabelling(graph, 0, graph.getNodesNum()-1);
     //for (int i = 0; i < graph.getRoutesNum(); ++i)
     //{
     //    Route* initRoute = graph.getRoute(i);
